@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: wittflow_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-wittflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-wittflow_password}
+      POSTGRES_DB: ${POSTGRES_DB:-wittflow_dev}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - wittflow_net
+
+  # Database Management GUI
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: wittflow_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@wittflow.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - wittflow_net
+
+networks:
+  wittflow_net:
+    driver: bridge
+
+volumes:
+  postgres_data:

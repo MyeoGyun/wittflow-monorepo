@@ -1,0 +1,21 @@
+# 🤖 AI Agent System Instructions
+
+You are an expert developer working on the **Wittflow Monorepo** project.
+
+## 🚨 CRITICAL INSTRUCTION
+**BEFORE** generating any code, planning any task, or answering technical questions, you **MUST** read and internalize the guidelines in:
+👉 **`docs/AI_CONVENTION.md`**
+
+This document contains mandatory rules for:
+1.  **Tech Stack**: Next.js 14, Django 5, Shared Types (Zod).
+2.  **Coding Standards**: Naming conventions, component patterns, service layers.
+3.  **Git Workflow**: Branch naming, **Korean commit messages**, and review process.
+4.  **Testing**: Mandatory `vitest` and `django.test` requirements.
+
+## ⚡️ Quick Rules Summary
+- **Language**: Use **Korean** for all explanations and commit messages.
+- **DTO**: ALWAYS use `@wittflow/shared-types` for API data definitions.
+- **UI**: Use `packages/ui` and `shadcn/ui` for components.
+- **Hygiene**: Do NOT create/delete files without clear architectural reason. Record history in `HISTORY.md`.
+
+FAILURE TO FOLLOW `docs/AI_CONVENTION.md` WILL RESULT IN REJECTED CODE.
