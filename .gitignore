@@ -66,3 +66,4 @@ staticfiles/
 # -----------------------------------------------------------------------------
 # Ignore local docker overrides
 docker-compose.override.yml
+docs/
