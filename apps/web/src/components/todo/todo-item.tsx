@@ -72,13 +72,48 @@ export function TodoItem({ todo, onToggle, onDelete, onUpdate }: TodoItemProps) 
                 />
 
                 <div className="flex-1 min-w-0 space-y-1">
-                    {todo.labels && todo.labels.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mb-1">
-                            {todo.labels.map(label => (
-                                <LabelBadge key={label.id} label={label} />
-                            ))}
-                        </div>
-                    )}
+                    <div className="flex flex-wrap items-center gap-1 mb-1">
+                        {todo.due_date && (() => {
+                            const today = new Date()
+                            today.setHours(0, 0, 0, 0)
+                            const due = new Date(todo.due_date!)
+                            due.setHours(0, 0, 0, 0)
+                            const diffTime = due.getTime() - today.getTime()
+                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+                            let dDayText = ""
+                            let dDayColor = ""
+
+                            if (diffDays === 0) {
+                                dDayText = "D-Day"
+                                dDayColor = "bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-300 font-bold border-red-200 dark:border-red-800"
+                            } else if (diffDays > 0 && diffDays <= 3) {
+                                dDayText = `D-${diffDays}`
+                                dDayColor = "bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-300 font-bold border-orange-200 dark:border-orange-800"
+                            } else if (diffDays > 0) {
+                                dDayText = `D-${diffDays}`
+                                dDayColor = "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-300 border-blue-100 dark:border-blue-800"
+                            } else {
+                                dDayText = `D+${Math.abs(diffDays)}`
+                                dDayColor = "bg-red-50 text-red-500 dark:bg-red-900/20 dark:text-red-400 border-red-100 dark:border-red-800"
+                            }
+
+                            return (
+                                <Badge variant="outline" className={cn("text-[10px] h-5 px-1.5 rounded-md border", dDayColor)}>
+                                    {dDayText}
+                                </Badge>
+                            )
+                        })()}
+
+                        {todo.labels && todo.labels.length > 0 && (
+                            <>
+                                {todo.labels.map(label => (
+                                    <LabelBadge key={label.id} label={label} />
+                                ))}
+                            </>
+                        )}
+                    </div>
+
                     <div className="flex items-center gap-2">
                         <span className={cn("font-medium truncate", todo.status === 'DONE' && "line-through text-muted-foreground")}>
                             {todo.title}
