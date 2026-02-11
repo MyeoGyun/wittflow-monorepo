@@ -34,6 +34,10 @@ INSTALLED_APPS = [
     # Third Party
     'rest_framework',
     'corsheaders',
+    'django_filters',
+
+    # Local
+    'todos',
 ]
 
 MIDDLEWARE = [
