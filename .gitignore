@@ -67,3 +67,8 @@ staticfiles/
 # Ignore local docker overrides
 docker-compose.override.yml
 docs/
+# -----------------------------------------------------------------------------
+# Local Dev Scripts & Workspace
+# -----------------------------------------------------------------------------
+dev.sh
+*.code-workspace
